@@ -44,6 +44,7 @@
     "gulp-uglify": "latest",
     "gulp-uncss": "latest",
     "gulp-util": "latest",
+    "gulp-watch": "latest",
     "imagemin-pngquant": "latest",
     "ttf2woff2": "latest"
   },
