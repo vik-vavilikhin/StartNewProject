@@ -1,33 +1,55 @@
-// @import "../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../vendor/_smart-grid";
-@include reset;
-// @import "../../vendor/animate/animate.css";
-// @import "../../vendor/Magnific-Popup/magnific-popup.css";
-/* === Slick-slider === */
-// @import "../../vendor/slick/slick.scss";
-// @import "../../vendor/animate/animate.css";
-// @import "../../vendor/fotorama-4.6.4/fotorama.css";
-/* ==================== */
+@import "fonts";
+@import "libs";
+@import "vars";
+@import "angle";
 
-@import "./app/liability/config/font-face";
-@import "./app/liability/config/vars";
-@import "./app/liability/config/angle";
+@include reset; /*Reset from smart-grid*/
 
-@include font-face('HN', "../fonts/HelveticaNeueCyr-Roman", 400, Normal, eof ttf woff woff2 svg);
-@include font-face('HN', "../fonts/HelveticaNeueCyr-Medium", 500, Medium, eof ttf woff woff2 svg);
-@include font-face('HN', "../fonts/HelveticaNeueCyr-Bold", 700, Bold, eof ttf woff woff2 svg);
-@include font-face('HN', "../fonts/HelveticaNeueCyr-Black", 900, Black, eof ttf woff woff2 svg);
+@include font-face("roboto", "../fonts/Roboto/Roboto Bold", bold);
+@include font-face("roboto", "../fonts/Roboto/Roboto Regular", normal);
+@include font-face("roboto", "../fonts/Roboto/Roboto Thin", 100);
 
+@include font-face("futura", "../fonts/FuturaPT/FuturaPT-Bold", bold);
+@include font-face("futura", "../fonts/FuturaPT/FuturaPT-Medium", 500);
+@include font-face("futura", "../fonts/FuturaPT/FuturaPTCond-Book", normal);
+@include font-face("futura", "../fonts/FuturaPT/FuturaPT-LightObl", 100);
+@include font-face("futura", "../fonts/FuturaPT/FuturaPT-Light", 100);
+
+@include font-face("times new roman", "../fonts/TimesNewRoman/TimesNewRomanBold", bold);
+@include font-face("times new roman", "../fonts/TimesNewRoman/TimesNewRomanRegular", normal);
 
 /* Basic settings */
+* {
+  box-sizing: border-box;
+}
+
 html {
-	font-size: 10px;
+	font-size: 16px;
 }
 
 .page {
-	font-family: 'HN', Arial, sans-serif;
+	min-width: 320px;
+	position: relative;
+	overflow-x: hidden;
+	font-family: 'roboto', Arial, sans-serif;
+	font-family: $default-font;
 	font-weight: 400;
-	font-size: 1.7rem;
+	font-size: 1rem;
+	line-height: 1.75;
+	color: $text;
+}
+button, input, textarea, a {
+  outline: none;
+  &:focus:required:invalid {
+    border-color: red;
+  }
+  &:required:valid {
+    border-color: green;
+  }
+  &:active, &:focus {
+    border: #666 1px solid;
+    outline: none
+  }
 }
 
 a {
@@ -37,60 +59,131 @@ a {
 	}
 }
 
-button, input, textarea, a {
-	&:active, &:focus {
-		outline: none
-	}
-}
-
 .container {
 	@include wrapper();
 }
 
-.section-header {
-	&__h2 {
-		font-size: 3.5rem;
-		font-weight: 900;
-		display: inline-block;
-		&::after {
-			content: '';
-			display: block;
-			margin: auto;
-			margin-top: 1rem;
-			width: 5.6rem;
-			height: 0.5rem;
-			background-color: $icons-color;
-		}
-	}
-	&__h3 {
-		font-size: 1.6rem;
-	}
+::placeholder {
+	color: #666;
 }
 
-.button {
-	// display: inline-block;
-	[class*='-btn'] {
-		cursor: pointer;
-		display: inline-block;
-		padding: 2.1rem 4.3rem;
-		border: none;
-		border-radius: 3px;
-		text-transform: uppercase;
-		font-size: 1.8rem;
-		font-weight: bold;
-		background-color: $btn-color;
-		color: white;
-		text-shadow: 0 1px 2px $btn-text-shadow;
-		@include md-block() {
-			font-size: 1.4rem;
-		}
-		@include sm-block() {
-			padding: 1.7rem 3.3rem;
-			font-size: 1.2rem;
-		}
-		@include xx-block() {
-			padding: 1.1rem 1.7rem;
-			font-size: 1rem;
-		}
+::selection {
+	background-color: $accent;
+	color: #fff;
+}
+
+.img-responsive {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	&.img-width {
+		width: 100%;
 	}
+}
+.text-center {
+	text-align: center;
+}
+
+b, strong {
+	font-weight: bold;
+}
+/* ========= nav =========== */
+.button {
+  display: inline-block;
+  width: 100%;
+  border: 1px solid #E0003F;
+  color: #fff;
+  text-decoration: none;
+  background-color: transparent;
+  padding: 15px 0;
+  font-size: 16px;
+  // text-transform: uppercase;
+  font-weight: 400;
+  // letter-spacing: 3px;
+  border-radius: 2px;
+  text-align: center;
+  position: relative;
+  outline: none;
+  transition: background-color .1s ease;
+  &:focus, &:hover {
+    text-decoration: none;
+    color: #fff;
+  }
+  &:hover {
+    background-color: rgba(lighten($accent, 5%), .1);
+  }
+  &:active{
+    background-color: rgba(darken($accent, 5%), .1);
+  }
+}
+/* ========= nav =========== */
+.nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 308px;
+  height: 100vh;
+  padding: 25px 35px;
+  background-color: #30353d;
+  color: #ffffff;
+  font-family: roboto;
+  &__header {
+    margin-top: 60px;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  &__list {
+    margin-top: 37px;
+    padding-left: 25px;
+  }
+  &__button {
+    margin-top: 40px;
+  }
+}
+
+.list {
+  &__item {
+    margin-bottom: 13px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &:hover {
+      font-weight: 100;
+      color: $accent;
+      
+    }
+  }
+  &__link {
+    color: inherit;
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+      
+    }
+  }
+
+}
+/* ========= logo ========== */
+.logo {
+  display: flex;
+  justify-content: space-around;
+  color: #ffffff;
+  &:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+  &__img {
+    width: 47px;
+    height: 47px;
+  }
+  &__title {
+    font-size: 29px;
+    font-weight: bold;
+    font-family: roboto;
+  }
+  &__label {
+    font-weight: 300;
+    font-family: 'times new roman';
+  }
 }
