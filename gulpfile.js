@@ -178,9 +178,9 @@ gulp.task('watch', function() {
     notify: false
   });
   gulp.watch(paths.watch.grid, gulp.series('grid'));
-  gulp.watch(paths.watch.html, gulp.series('html'));
-  gulp.watch(paths.watch.css,  gulp.series('cssCommon'));
-  gulp.watch(paths.watch.js,   gulp.series('jsCommon'));
+   gulp.watch(paths.watch.html, gulp.series('html'));
+   gulp.watch(paths.watch.css,  gulp.series('cssCommon'));
+   gulp.watch(paths.watch.js,   gulp.series('jsCommon'));
   gulp.watch('*.html').on('change', reload);
 });
 
@@ -193,11 +193,11 @@ gulp.task('grid', function () {
 
 /* Таск для работы Pug, преобразование Pug в HTML: */
 gulp.task('html', function () {
-  return gulp.src(paths.app.html.src)
-    .pipe(plumber())
-    .pipe(pug({pretty: true}))
-    .pipe(gulp.dest(paths.app.html.dest))
-    .pipe(browserSync.stream());
+   return gulp.src(paths.app.html.src)
+      .pipe(plumber())
+      .pipe(pug({pretty: true}))
+      .pipe(gulp.dest(paths.app.html.dest))
+      .pipe(browserSync.stream());
 });
 
 /* Таск для преобразования Sass-файлов в CSS: */
@@ -208,7 +208,7 @@ gulp.task('cssCommon', function() {
    return gulp.src(paths.app.common.css.src)
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(concat('common.scss'))
+      .pipe(concat('common.scss'))
     .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
     .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}))
     .pipe(pxtorem(pxtoremOptions, postcssOptions))
