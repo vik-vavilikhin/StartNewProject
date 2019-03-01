@@ -52,7 +52,8 @@
     "ttf2woff2": "latest"
   },
   "dependencies": {
-    "bower": "latest"
+    "bower": "latest",
+    "jshint": "latest"
   },
   "optionalDependencies": {}
 }
