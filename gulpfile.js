@@ -272,54 +272,26 @@ gulp.task('img', function() {
     .pipe(gulp.dest(paths.img.dest));
 });
 
-/* Таск для преобразования шрифтов *.ttf в шрифты *.eot: */
-gulp.task('fontsEot', function () {
-  return gulp.src(paths.app.common.fonts.src)
-    .pipe(ttf2eot())   // преобразование .ttf => eot
-    .pipe(gulp.dest(paths.app.common.fonts.dest));
+// /* Таск для конвертации шрифтов *.ttf в др. форматы
+gulp.task('fontsConvert', function () {
+	var Eot =  gulp.src(paths.app.common.fonts.src)
+		.pipe(ttf2eot())   // преобразование .ttf => eot
+		.pipe(gulp.dest(paths.app.common.fonts.dest));
+
+	var Woff = gulp.src(paths.app.common.fonts.src)
+		.pipe(ttf2woff())  // преобразование .ttf => woff
+		.pipe(gulp.dest(paths.app.common.fonts.dest));
+
+	var Woff2 = gulp.src(paths.app.common.fonts.src)
+		.pipe(ttf2woff2())   // преобразование .ttf => woff2
+		.pipe(gulp.dest(paths.app.common.fonts.dest));
+
+	var Svg = gulp.src(paths.app.common.fonts.src)
+		.pipe(ttf2svg())  // преобразование .ttf => svg
+		.pipe(gulp.dest(paths.app.common.fonts.dest));
+
+	return Eot, Woff, Woff2, Svg;
 });
-
-/* Таск для преобразования шрифтов *.ttf в шрифты *.woff: */
-gulp.task('fontsWoff', function () {
-  return gulp.src(paths.app.common.fonts.src)
-    .pipe(ttf2woff())  // преобразование .ttf => woff
-    .pipe(gulp.dest(paths.app.common.fonts.dest));
-});
-
-/* Таск для преобразования шрифтов *.ttf в шрифты *.woff2: */
-gulp.task('fontsWoff2', function () {
-  return gulp.src(paths.app.common.fonts.src)
-    .pipe(ttf2woff2())   // преобразование .ttf => woff2
-    .pipe(gulp.dest(paths.app.common.fonts.dest));
-});
-
-/* Таск для преобразования шрифтов *.ttf в шрифты *.svg: */
-gulp.task('fontsSvg', function () {
-  return gulp.src(paths.app.common.fonts.src)
-    .pipe(ttf2svg())  // преобразование .ttf => svg
-    .pipe(gulp.dest(paths.app.common.fonts.dest));
-});
-
-// gulp.task('fontsConvert', function () {
-// 	var fontEot =  gulp.src(paths.app.common.fonts.src)
-// 		.pipe(ttf2eot())   // преобразование .ttf => eot
-// 		.pipe(gulp.dest(paths.app.common.fonts.dest));
-
-// 	var fontWoff = gulp.src(paths.app.common.fonts.src)
-// 		.pipe(ttf2woff())  // преобразование .ttf => woff
-// 		.pipe(gulp.dest(paths.app.common.fonts.dest));
-
-// 	var fontWoff2 = gulp.src(paths.app.common.fonts.src)
-// 		.pipe(ttf2woff2())   // преобразование .ttf => woff2
-// 		.pipe(gulp.dest(paths.app.common.fonts.dest));
-
-// 	var fontSvg = gulp.src(paths.app.common.fonts.src)
-// 		.pipe(ttf2svg())  // преобразование .ttf => svg
-// 		.pipe(gulp.dest(paths.app.common.fonts.dest));
-
-// 	return fontEot, fontWoff, fontWoff2, fontSvg;
-// });
-
 
 gulp.task('rsync', function () {
   return gulp.src('app/**')
@@ -357,9 +329,6 @@ gulp.task('dist', function () {
   return htmlDist, cssDist, jsDist, fontsDist;
 });
 
-/* Таск для преобразования шрифтов: */
-gulp.task('fonts', gulp.series('fontsEot', 'fontsWoff', 'fontsWoff2', 'fontsSvg'));
-
 /* Таск для сборки: */
 gulp.task('build',
    gulp.parallel(
@@ -376,4 +345,4 @@ gulp.task('build',
 gulp.task('default', gulp.series('build', 'watch'));
 
 /* Таск для production: */
-gulp.task('public', gulp.series('clean', 'img', 'fonts', 'dist'));
+gulp.task('public', gulp.series('clean', 'img', 'fontsConvert', 'dist'));

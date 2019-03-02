@@ -50,8 +50,9 @@
   },
   "dependencies": {
     "bower": "latest",
-    "smart-grid": "latest",
-    "jshint": "latest"
+    "gulp-load-plugins": "latest",
+    "jshint": "latest",
+    "smart-grid": "latest"
   },
   "optionalDependencies": {}
 }
