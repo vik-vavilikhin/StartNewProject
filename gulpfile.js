@@ -46,7 +46,7 @@ const gulp      = require('gulp'),                         // Gulp
   ttf2svg       = require('gulp-ttf-svg'),                 // Преобразование шрифтов .ttf в svg
 
   gutil         = require('gulp-util'),
-  notify        = require("gulp-notify"),
+  notify        = require('gulp-notify'),
   rsync         = require('gulp-rsync');
 
 /* Задание путей к используемым файлам и папкам: */
