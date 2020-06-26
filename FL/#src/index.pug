@@ -8,10 +8,11 @@ include ../node_modules/bemto.pug/bemto
 
 include ./layout/head/_head
 //- include ./layout/head/_metrics
-include ./layout/scripts/_scripts
 //- include ./layout/debug-grid/debug-grid
+include ./layout/scripts/_scripts
 
 include ./layout/s-header/_s-header
+include ./layout/s-footer/_s-footer
 include ./layout/popup/_popup
 
 doctype html
@@ -38,6 +39,9 @@ html(lang='ru')
 		
 		block header
 			+s-header
+		
+		block footer
+			+s-footer
 
 		block popup
 			+popup
