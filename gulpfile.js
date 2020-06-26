@@ -1,217 +1,231 @@
 /*========================= TASK (ЗАДАЧИ) =====================================
-gulp.task('mytask', function() {       // Создаем задачу
- return gulp.src('source-filse')       // Объявляем ресурс для работы (с чем работаем)
-                                       // !          - исключить
-                                       // [...]        - массив
-                                       // .+(scss|sass)  - несколько расширений
-   .pipe(plugin())                     // Запускаем плагин для обработки ресурса
+gulp.task('mytask', function() {        // Создаем задачу
+ return gulp.src('source-filse')        // Объявляем ресурс для работы 
+                                        // (с чем работаем)
+                                        // !          - исключить
+                                        // [...]        - массив
+                                        // .+(scss|sass)  - несколько расширений
+   .pipe(plugin())                      // Запускаем плагин для 
+                                        // обработки ресурса
    .pipe(gulp.dest('folder'))          // Выводим результат обработки в папку
 });
 =============================================================================*/
 'use strict';
 
 /* Подключение плагинов: */
-const gulp      = require('gulp'),                         // Gulp
+const gulp = require('gulp'), // Gulp
 
-  browserSync   = require('browser-sync').create(),        // Подключение Browsersync
-  reload        = browserSync.reload,
+  browserSync = require('browser-sync').create(), // Подключение Browsersync
+  reload = browserSync.reload,
 
   // gWatch     = require('gulp-watch'),                   // Вотчер
-  plumber       = require('gulp-plumber'),                 // Обработка ошибок
-  concat        = require('gulp-concat'),                  // Объединение файлов
-  rename        = require('gulp-rename'),                  // Переименование файлов
-  del           = require('del'),                          // Удаление папок и файлов
+  plumber = require('gulp-plumber'), // Обработка ошибок
+  concat = require('gulp-concat'), // Объединение файлов
+  rename = require('gulp-rename'), // Переименование файлов
+  del = require('del'), // Удаление папок и файлов
 
-  pug           = require('gulp-pug'),                     // Pug
-  sass          = require('gulp-sass'),                    // Sass
-  htmlmin       = require('gulp-html-minifier'),          // Минификация HTML
-  smartgrid     = require('smart-grid'),                   // Smart-grid
+  pug = require('gulp-pug'), // Pug
+  sass = require('gulp-sass'), // Sass
+  htmlmin = require('gulp-html-minifier'), // Минификация HTML
+  smartgrid = require('smart-grid'), // Smart-grid
 
-  autoprefixer  = require('gulp-autoprefixer'),            // Добавление вендорных префиксов
-  pxtorem       = require('gulp-pxtorem'),                 // Преобразование px и em в rem
-  gcmq          = require('gulp-group-css-media-queries'), // Группировка медиа-запросов
-  cleanCSS      = require('gulp-clean-css'),               // Минификация CSS-файлов
-  csso          = require('gulp-csso'),                    // Минификация CSS-файлов от Яндекс
-  sourcemaps    = require('gulp-sourcemaps'),              // Карта CSS-файла
-  uncss         = require('gulp-uncss'),                   // Удаление неиспользуемых CSS-свойств
+  autoprefixer = require('gulp-autoprefixer'), // Добавление вендорных префиксов
+  pxtorem = require('gulp-pxtorem'), // Преобразование px и em в rem
+  gcmq = require('gulp-group-css-media-queries'), // Группировка медиа-запросов
+  cleanCSS = require('gulp-clean-css'), // Минификация CSS-файлов
+  csso = require('gulp-csso'), // Минификация CSS-файлов от Яндекс
+  sourcemaps = require('gulp-sourcemaps'), // Карта CSS-файла
+  uncss = require('gulp-uncss'), // Удаление неиспользуемых CSS-свойств
 
-  uglify        = require('gulp-uglify'),                  // Минификация JS-файлов
+  uglify = require('gulp-uglify'), // Минификация JS-файлов
 
-  imagemin      = require('gulp-imagemin'),                // Оптимизация изображений
-  pngquant      = require('imagemin-pngquant'),            // Оптимизация PNG-изображений
+  imagemin = require('gulp-imagemin'), // Оптимизация изображений
+  pngquant = require('imagemin-pngquant'), // Оптимизация PNG-изображений
 
-  ttf2eot       = require('gulp-ttf2eot'),                 // Преобразование шрифтов .ttf в eot
-  ttf2woff      = require('gulp-ttf2woff'),                // Преобразование шрифтов .ttf в woff
-  ttf2woff2     = require('gulp-ttf2woff2'),               // Преобразование шрифтов .ttf в woff2
-  ttf2svg       = require('gulp-ttf-svg'),                 // Преобразование шрифтов .ttf в svg
+  ttf2eot = require('gulp-ttf2eot'), // Преобразование шрифтов .ttf в eot
+  ttf2woff = require('gulp-ttf2woff'), // Преобразование шрифтов .ttf в woff
+  ttf2woff2 = require('gulp-ttf2woff2'), // Преобразование шрифтов .ttf в woff2
+  ttf2svg = require('gulp-ttf-svg'), // Преобразование шрифтов .ttf в svg
 
-  gutil         = require('gulp-util'),
-  notify        = require('gulp-notify'),
-  rsync         = require('gulp-rsync');
+  gutil = require('gulp-util'),
+  notify = require('gulp-notify'),
+  rsync = require('gulp-rsync');
 
 /* Задание путей к используемым файлам и папкам: */
-var paths = {
+const paths = {
   dir: {
-    app:      './app',
-    dist:     './dist'
+    app: './app',
+    dist: './dist'
   },
   /*=============*/
   watch: {
-    html:     './app/liability/**/*.pug',
-    css:      './app/liability/**/*.scss',
-    js:       './app/liability/**/*.js',
-    grid:     './app/vendor/smartgrid/_smartgrid-options.js'
+    html: './app/liability/**/*.pug',
+    css: './app/liability/**/*.scss',
+    js: './app/liability/**/*.js',
+    grid: './app/vendor/smartgrid/_smartgrid-options.js'
   },
   /*=============*/
   app: {
     html: {
       src: [
-              './app/liability/pages/*.pug',
-              '!./app/liability/pages/template.pug',
+        './app/liability/pages/*.pug',
+        '!./app/liability/pages/template.pug',
       ],
-      dest:   './app/assets'
+      dest: './app/assets'
     },
 
     common: {
-      css: {  /* Файлы указываем по порядку подключения */
+      css: {
+        /* Файлы указываем по порядку подключения */
         src: [
-              './app/liability/config/*.scss',       // Основная конфигурация и переменные
-              './app/liability/layout/**/*.scss',    // Настройки вспомогательных модулей
-              './app/liability/blocks/**/*.scss'     // Стили блоков и элементов
+          './app/liability/config/*.scss', // Основная конфигурация и переменные
+          './app/liability/layout/**/*.scss', // Настройки вспомогательных модулей
+          './app/liability/blocks/**/*.scss' // Стили блоков и элементов
         ],
         dest: './app/assets/css'
       },
 
       js: {
-        src:  [
-            // './node_modules/jquery/dist/jquery.min.js',
-            // './node_modules/bootstrap/dist/js/bootstrap.min.js',
-            // './app/vendor/jQuery Masked Input/jquery.maskedinput.js',
-            // './app/vendor/parallax/parallax.js',
-            // './app/vendor/rellax-master/rellax.js',
-            // './app/vendor/wow.js/wow.js',
-              './app/liability/**/*.js',
+        src: [
+          // './node_modules/jquery/dist/jquery.min.js',
+          // './node_modules/bootstrap/dist/js/bootstrap.min.js',
+          // './app/vendor/jQuery Masked Input/jquery.maskedinput.js',
+          // './app/vendor/parallax/parallax.js',
+          // './app/vendor/rellax-master/rellax.js',
+          // './app/vendor/wow.js/wow.js',
+          './app/liability/**/*.js',
         ],
         dest: './app/assets/js'
       },
 
       fonts: {
-        src:  './app/assets/fonts/**/*.ttf',
+        src: './app/assets/fonts/**/*.ttf',
         dest: './app/assets/fonts'
       }
     },
 
     vendor: {
-      css: {  /* Файлы внешних библиотек */
+      css: {
+        /* Файлы внешних библиотек */
         src: [
-            // '!./app/vendor/normalize.css/normalize.css',
-            // '!./app/vendor/bootstrap/dist/css/bootstrap.min.css',
-            // '!./app/vendor/font-awesome/css/font-awesome.css',
-            // '!./app/vendor/fontello/css/fontello.css',
-            // '!./app/vendor/likely/likely.css',
-            // '!./app/vendor/OwlCarousel/owl.carousel.min.css',
-            /* ^ Исключение из обработки ^ */
+          // '!./app/vendor/normalize.css/normalize.css',
+          // '!./app/vendor/bootstrap/dist/css/bootstrap.min.css',
+          // '!./app/vendor/font-awesome/css/font-awesome.css',
+          // '!./app/vendor/fontello/css/fontello.css',
+          // '!./app/vendor/likely/likely.css',
+          // '!./app/vendor/OwlCarousel/owl.carousel.min.css',
+          /* ^ Исключение из обработки ^ */
         ],
         dest: './app/assets/css'
       },
 
       js: {
         src: [
-            // '!./app/vendor/jquery/dist/jquery.min.js',
-            // '!./app/vendor/bootstrap/dist/js/bootstrap.min.js',
-            // '!./app/vendor/likely/likely.js',
-            // '!./app/vendor/read-progress/prognroll/prognroll.js',
-            // '!./app/vendor/OwlCarousel/owl.carousel.min.js',
-            /* ^ Исключение из обработки ^ */
+          // '!./app/vendor/jquery/dist/jquery.min.js',
+          // '!./app/vendor/bootstrap/dist/js/bootstrap.min.js',
+          // '!./app/vendor/likely/likely.js',
+          // '!./app/vendor/read-progress/prognroll/prognroll.js',
+          // '!./app/vendor/OwlCarousel/owl.carousel.min.js',
+          /* ^ Исключение из обработки ^ */
         ],
         dest: './app/assets/js'
       },
 
       fonts: {
         src: [
-            // '!./app/vendor/font-awesome/fonts/*.*',
-            // '!./app/vendor/fontello/font/**/*.*',
-            /* ^ Исключение из обработки ^ */
+          // '!./app/vendor/font-awesome/fonts/*.*',
+          // '!./app/vendor/fontello/font/**/*.*',
+          /* ^ Исключение из обработки ^ */
         ],
         dest: './app/assets/fonts'
       },
 
       grid: {
-        src:  './app/vendor/smartgrid-options.js',
+        src: './app/vendor/smartgrid-options.js',
         dest: './app/vendor/'
       }
     }
   },
   /*=============*/
   img: {
-    src:      './app/assets/images/**/*.*',
-    dest:     './dist/images'
+    src: './app/assets/images/**/*.*',
+    dest: './dist/images'
   },
   /*=============*/
   dist: {
     html: {
-      src:    './app/assets/*.html',
-      dest:   './dist'
+      src: './app/assets/*.html',
+      dest: './dist'
     },
 
     css: {
-      src:    './app/assets/css/*.min.css',
-      dest:   './dist/css'
+      src: './app/assets/css/*.min.css',
+      dest: './dist/css'
     },
 
     js: {
-      src:    './app/assets/js/*.min.js',
-      dest:   './dist/js'
+      src: './app/assets/js/*.min.js',
+      dest: './dist/js'
     },
 
     fonts: {
-      src:    './app/assets/fonts/**/*.*',
-      dest:   './dist/fonts'
+      src: './app/assets/fonts/**/*.*',
+      dest: './dist/fonts'
     }
   }
-}
+};
 
 /* Таск для работы Browsersync, автообновление браузера: */
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   browserSync.init({
     server: paths.app.html.dest,
     notify: false
   });
   gulp.watch(paths.watch.grid, gulp.series('grid'));
-   gulp.watch(paths.watch.html, gulp.series('html'));
-   gulp.watch(paths.watch.css,  gulp.series('cssCommon'));
-   gulp.watch(paths.watch.js,   gulp.series('jsCommon'));
+  gulp.watch(paths.watch.html, gulp.series('html'));
+  gulp.watch(paths.watch.css, gulp.series('cssCommon'));
+  gulp.watch(paths.watch.js, gulp.series('jsCommon'));
   gulp.watch('*.html').on('change', reload);
 });
 
 /* Компиляция smart-grid */
 gulp.task('grid', function () {
   delete require.cache[require.resolve(paths.app.vendor.grid.src)];
-    let options = require(paths.app.vendor.grid.src);
-    smartgrid(paths.app.vendor.grid.dest, options);
+  let options = require(paths.app.vendor.grid.src);
+  smartgrid(paths.app.vendor.grid.dest, options);
 });
 
 /* Таск для работы Pug, преобразование Pug в HTML: */
 gulp.task('html', function () {
-   return gulp.src(paths.app.html.src)
-      .pipe(plumber())
-      .pipe(pug({pretty: true}))
-      .pipe(gulp.dest(paths.app.html.dest))
-      .pipe(browserSync.stream());
+  return gulp.src(paths.app.html.src)
+    .pipe(plumber())
+    .pipe(pug({
+      pretty: true
+    }))
+    .pipe(gulp.dest(paths.app.html.dest))
+    .pipe(browserSync.stream());
 });
 
 /* Таск для преобразования Sass-файлов в CSS: */
-gulp.task('cssCommon', function() {
-  var pxtoremOptions = { replace: true };
-  var postcssOptions = { map:     false };
+gulp.task('cssCommon', function () {
+  var pxtoremOptions = {
+    replace: true
+  };
+  var postcssOptions = {
+    map: false
+  };
 
-   return gulp.src(paths.app.common.css.src)
+  return gulp.src(paths.app.common.css.src)
     .pipe(plumber())
     .pipe(sourcemaps.init())
-      .pipe(concat('common.scss'))
-     .pipe(sass({ outputStyle: 'expanded' }).on('error', notify.onError()))
+    .pipe(concat('common.scss'))
+    .pipe(sass({
+      outputStyle: 'expanded'
+    }).on('error', notify.onError()))
     // .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
-    .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}))
+    .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {
+      cascade: true
+    }))
     .pipe(pxtorem(pxtoremOptions, postcssOptions))
     .pipe(gcmq())
     .pipe(cleanCSS({
@@ -219,7 +233,9 @@ gulp.task('cssCommon', function() {
       format: 'beautify'
     }))
     .pipe(gulp.dest(paths.app.common.css.dest))
-    .pipe(rename({ suffix: '.min' }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(csso())
     // .pipe(cleanCSS({level: 2}))
     .pipe(sourcemaps.write('.'))
@@ -228,12 +244,14 @@ gulp.task('cssCommon', function() {
 });
 
 /* Таск для объединения и минификации пользовательских JS-файлов: */
-gulp.task('jsCommon', function() {
+gulp.task('jsCommon', function () {
   return gulp.src(paths.app.common.js.src)
     .pipe(plumber())
     .pipe(concat('common.js'))
     .pipe(gulp.dest(paths.app.common.js.dest))
-    .pipe(rename({ suffix: '.min' }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(uglify())
     .pipe(gulp.dest(paths.app.common.js.dest))
     .pipe(browserSync.stream());
@@ -262,36 +280,38 @@ gulp.task('fontsVendor', function () {
 });
 
 /* Таск для предварительной очистки (удаления) production-папки: */
-gulp.task('clean', function() {
-   return del(paths.dir.dist);
+gulp.task('clean', function () {
+  return del(paths.dir.dist);
 });
 
 /* Таск для обработки изображений: */
-gulp.task('img', function() {
+gulp.task('img', function () {
   return gulp.src(paths.img.src)
-    .pipe(imagemin({ use: [pngquant()] }))
+    .pipe(imagemin({
+      use: [pngquant()]
+    }))
     .pipe(gulp.dest(paths.img.dest));
 });
 
 // /* Таск для конвертации шрифтов *.ttf в др. форматы
 gulp.task('fontsConvert', function () {
-	var Eot =  gulp.src(paths.app.common.fonts.src)
-		.pipe(ttf2eot())   // преобразование .ttf => eot
-		.pipe(gulp.dest(paths.app.common.fonts.dest));
+  const Eot = gulp.src(paths.app.common.fonts.src)
+    .pipe(ttf2eot()) // преобразование .ttf => eot
+    .pipe(gulp.dest(paths.app.common.fonts.dest));
 
-	var Woff = gulp.src(paths.app.common.fonts.src)
-		.pipe(ttf2woff())  // преобразование .ttf => woff
-		.pipe(gulp.dest(paths.app.common.fonts.dest));
+  const Woff = gulp.src(paths.app.common.fonts.src)
+    .pipe(ttf2woff()) // преобразование .ttf => woff
+    .pipe(gulp.dest(paths.app.common.fonts.dest));
 
-	var Woff2 = gulp.src(paths.app.common.fonts.src)
-		.pipe(ttf2woff2())   // преобразование .ttf => woff2
-		.pipe(gulp.dest(paths.app.common.fonts.dest));
+  const Woff2 = gulp.src(paths.app.common.fonts.src)
+    .pipe(ttf2woff2()) // преобразование .ttf => woff2
+    .pipe(gulp.dest(paths.app.common.fonts.dest));
 
-	var Svg = gulp.src(paths.app.common.fonts.src)
-		.pipe(ttf2svg())  // преобразование .ttf => svg
-		.pipe(gulp.dest(paths.app.common.fonts.dest));
+  const Svg = gulp.src(paths.app.common.fonts.src)
+    .pipe(ttf2svg()) // преобразование .ttf => svg
+    .pipe(gulp.dest(paths.app.common.fonts.dest));
 
-	return Eot, Woff, Woff2, Svg;
+  return Eot, Woff, Woff2, Svg;
 });
 
 gulp.task('rsync', function () {
@@ -300,46 +320,48 @@ gulp.task('rsync', function () {
       root: 'app/',
       hostname: 'username@yousite.com',
       destination: 'yousite/public_html/',
-      include: ['*.htaccess'], 							// Includes files to deploy
-      exclude: ['**/Thumbs.db', '**/*.DS_Store'], 	// Excludes files from deploy
+      include: ['*.htaccess'], // Includes files to deploy
+      exclude: ['**/Thumbs.db', '**/*.DS_Store'], // Excludes files from deploy
       recursive: true,
       archive: true,
       silent: false,
       compress: true
-    }))
+    }));
 });
 
 /* Таск для формирования production-папки: */
 gulp.task('dist', function () {
-  var htmlDist = gulp.src(paths.dist.html.src)
-    .pipe(htmlmin({ collapseWhitespace: true })) // Минификация HTML
-    .pipe(gulp.dest(paths.dist.html.dest));      // Перенос HTML
+  const htmlDist = gulp.src(paths.dist.html.src)
+    .pipe(htmlmin({
+      collapseWhitespace: true
+    })) // Минификация HTML
+    .pipe(gulp.dest(paths.dist.html.dest)); // Перенос HTML
 
-  var cssDist = gulp.src(paths.dist.css.src)
+  const cssDist = gulp.src(paths.dist.css.src)
     // .pipe(uncss({html: ['app/index.html']}))     // Удалить неиспользуемые стили
-    .pipe(csso())                                // Минификация CSS
-    .pipe(gulp.dest(paths.dist.css.dest));       // Перенос CSS
+    .pipe(csso()) // Минификация CSS
+    .pipe(gulp.dest(paths.dist.css.dest)); // Перенос CSS
 
-  var jsDist = gulp.src(paths.dist.js.src)
-    .pipe(uglify())                              // Минификация JS
-    .pipe(gulp.dest(paths.dist.js.dest));        // Перенос JS
+  const jsDist = gulp.src(paths.dist.js.src)
+    .pipe(uglify()) // Минификация JS
+    .pipe(gulp.dest(paths.dist.js.dest)); // Перенос JS
 
-  var fontsDist = gulp.src(paths.dist.fonts.src)
-    .pipe(gulp.dest(paths.dist.fonts.dest));     //Перенос шрифтов
+  const fontsDist = gulp.src(paths.dist.fonts.src)
+    .pipe(gulp.dest(paths.dist.fonts.dest)); //Перенос шрифтов
 
   return htmlDist, cssDist, jsDist, fontsDist;
 });
 
 /* Таск для сборки: */
 gulp.task('build',
-   gulp.parallel(
+  gulp.parallel(
     'html',
     'cssCommon',
     'jsCommon',
     // 'cssVendor',
     // 'jsVendor',
     // 'fontsVendor'
-   )
+  )
 );
 
 /* Таск для разработки: */
