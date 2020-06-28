@@ -1,18 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-  'use strict';
-  // ---------------------------------------------
-  const userHeaderIcon = document.querySelector('.user-header__icon');
-  const userHeaderMenu = document.querySelector('.user-header__menu');
-  // ---------------------------------------------
-  // @@include('../vendor/swiper/js/swiper.js')
-  // @@include('../vendor/smothScroll/smothScroll.js')
-  // @@include('./modules/gotoBlock.js')
-
-  // // ====== inspectUserAgent =================
+// ====== inspectUserAgent =================
 /*
  *  Определение браузера пользователя и ОС
  */
-function inspectUserAgent() {
+const inspectUserAgent = function () {
   let ua = window.navigator.userAgent;
   let msie = ua.indexOf('MSIE ');
   let isMobile = {
@@ -53,13 +43,13 @@ function inspectUserAgent() {
   if (isMobile.any()) {
     document.querySelector('body').classList.add('touch');
   }
-}
+};
 
 // ====== testWebP =========================
 /*
  * Функция определяет поддкржку браузером WebP
  */
-function testWebP() {
+const testWebP = function () {
   const webP = new Image();
   const cb = (support) => {
     if (support == true) {
@@ -74,18 +64,18 @@ function testWebP() {
   };
 
   webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
-}
+};
 
 // ===== bodyLock ==========================
-function bodyLock(delay) {
+const bodyLock = function (delay) {
   document.querySelector('body')
     .classList.contains('_lock') ?
     bodyLockRemove(delay) :
     bodyLockAdd(delay);
-}
+};
 
 // ===== bodyLockRemove ====================
-function bodyLockRemove(delay) {
+const bodyLockRemove = function (delay) {
   let body = document.querySelector('body');
 
   if (!body.classList.contains('_wait')) {
@@ -105,10 +95,10 @@ function bodyLockRemove(delay) {
       body.classList.remove('_wait');
     }, delay);
   }
-}
+};
 
 // ===== bodyLockAdd =======================
-function bodyLockAdd(delay) {
+const bodyLockAdd = function (delay) {
   let body = document.querySelector('body');
 
   if (!body.classList.contains('_wait')) {
@@ -129,7 +119,7 @@ function bodyLockAdd(delay) {
       body.classList.remove('_wait');
     }, delay);
   }
-}
+};
 
 // ====== backgroundImage ==================
 /*
@@ -141,7 +131,7 @@ function bodyLockAdd(delay) {
 * ИСТОЧНИК: https://www.youtube.com/watch?v=nTtuiBXKp88&list
 * ИСХОДНИК: http://fls.guru/ibg.html
 */
-function backgroundImage() {
+const backgroundImage = function () {
   // '._ibg' - родительский элемент
   // Получить все родительские элементы в массив
   const ibg = document.querySelectorAll('._ibg');
@@ -158,14 +148,14 @@ function backgroundImage() {
       item.style.backgroundImage = `url(${src})`;
     }
   });
-}
+};
 
 // ====== burgerActive =====================
 /*
  * - iconMenuElem - меню-бургер '.icon-menu'
  * - menuBodyElem - основное меню навигации '.menu__body'
  */
-function burgerActive() {
+const burgerActive = function () {
   const iconMenu = document.querySelector('.icon-menu');
   const menuBody = document.querySelector('.menu__body');
 
@@ -181,19 +171,19 @@ function burgerActive() {
       }
     });
   }
-}
+};
 
 // ===== menuClose =========================
 /*
  * - iconMenuElem - меню-бургер '.icon-menu'
  * - menuBodyElem - основное меню навигации '.menu__body'
  */
-function menuClose() {
+const menuClose = function () {
   let iconMenu = document.querySelector('.icon-menu');
   let menuBody = document.querySelector('.menu__body');
   iconMenu.classList.remove('_active');
   menuBody.classList.remove('_active');
-}
+};
 
 // ====== elemReplace =====================
 /*
@@ -208,7 +198,7 @@ function menuClose() {
 !             <span>Выбор региона</span>
 !           </a>
 */
-function elemReplace() {
+const elemReplace = function () {
   const dataAttribute = 'data-move';
   // Определить текущую ширину открытого документа
   let clientWidth = document.documentElement.clientWidth;
@@ -320,22 +310,16 @@ function elemReplace() {
       screenSize();
     });
   });
-}
-  // ---------------------------------------------
-  document.addEventListener('click', (e) => {
-    const target = e.target;
-    if (!target.closest('.user-header__icon')) {
-      userHeaderMenu.classList.remove('_active');
-    }
-  });
-  // ---------------------------------------------
-  userHeaderIcon.addEventListener('click', () => {
-    userHeaderMenu.classList.toggle('_active');
-  });
-  // ---------------------------------------------
-  inspectUserAgent();
-  testWebP();
-  backgroundImage();
-  burgerActive();
-  elemReplace();
-});
+};
+
+export {
+  inspectUserAgent,
+  testWebP,
+  bodyLock,
+  bodyLockRemove,
+  bodyLockAdd,
+  backgroundImage,
+  burgerActive,
+  menuClose,
+  elemReplace,
+};
