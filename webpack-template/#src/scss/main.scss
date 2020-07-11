@@ -1,0 +1,117 @@
+@import 'utils/libs';
+@import 'utils/vars';
+@import 'utils/mixin';
+@import 'utils/fonts';
+@import 'utils/null';
+
+html {
+  line-height: $mainLineHeight;
+  font-size: $mainFontSize;
+  color: $mainFontColor;
+  height: 100%;
+
+  @media (max-width:$md1+px) {
+    font-size: 16px;
+  }
+
+  @media (max-width:$md3+px) {
+    font-size: 15px;
+  }
+
+  @media (max-width:$md4+px) {
+    font-size: 14px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $mainFont;
+  font-size: $mainFontSize;
+  font-weight: $mainFontWeight;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+section,
+.section {
+  position: relative;
+  padding: 40px 0px 40px 0px;
+
+  @media (max-width:$md1+px) {
+    padding: 36px 0px 36px 0px;
+  }
+
+  @media (max-width:$md3+px) {
+    padding: 28px 0px 28px 0px;
+  }
+
+  @media (max-width:$md4+px) {
+    padding: 20px 0px 20px 0px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-width: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  flex: 0 0 auto;
+  position: relative;
+  margin: 0 auto;
+  max-width: $md1;
+
+  @media (max-width:$md1+px) {
+    max-width: $md1;
+  }
+
+  @media (max-width:$md3+px) {
+    max-width: $md3;
+  }
+
+  @media (max-width:$md4+px) {
+    max-width: $md4;
+  }
+}
+
+/*
+! Modules: ============================== */
+@import 'utils/ui';
+// example: @import "modules/my-module.scss";
