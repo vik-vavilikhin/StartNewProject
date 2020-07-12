@@ -1,24 +1,21 @@
-@import 'utils/libs';
-@import 'utils/vars';
-@import 'utils/mixin';
-@import 'utils/fonts';
-@import 'utils/null';
+@import "utils/libs";
+@import "utils/vars";
+@import "utils/mixins";
+@import "utils/fonts";
+@import "utils/reset";
 
 html {
   line-height: $mainLineHeight;
   font-size: $mainFontSize;
   color: $mainFontColor;
   height: 100%;
-
-  @media (max-width:$md1+px) {
+  @media screen and (max-width: $desktopWidth) {
     font-size: 16px;
   }
-
-  @media (max-width:$md3+px) {
+  @media screen and (max-width: $tableWidth) {
     font-size: 15px;
   }
-
-  @media (max-width:$md4+px) {
+  @media screen and (max-width: $phoneWidth) {
     font-size: 14px;
   }
 }
@@ -62,18 +59,15 @@ li {
 section,
 .section {
   position: relative;
-  padding: 40px 0px 40px 0px;
-
-  @media (max-width:$md1+px) {
-    padding: 36px 0px 36px 0px;
+  padding: 40px 0;
+  @media screen and (max-width: $smDesktopWidth) {
+    padding: 36px 0;
   }
-
-  @media (max-width:$md3+px) {
-    padding: 28px 0px 28px 0px;
+  @media screen and (max-width: $tableWidth) {
+    padding: 28px 0;
   }
-
-  @media (max-width:$md4+px) {
-    padding: 20px 0px 20px 0px;
+  @media screen and (max-width: $phoneWidth) {
+    padding: 20px 0;
   }
 }
 
@@ -96,22 +90,17 @@ section,
   flex: 0 0 auto;
   position: relative;
   margin: 0 auto;
-  max-width: $md1;
-
-  @media (max-width:$md1+px) {
-    max-width: $md1;
+  max-width: $desktopWidth;
+  @media screen and (max-width: $smDesktopWidth) {
+    max-width: $tableWidth;
   }
-
-  @media (max-width:$md3+px) {
-    max-width: $md3;
+  @media screen and (max-width: $tableWidth) {
+    max-width: $phoneWidth;
   }
-
-  @media (max-width:$md4+px) {
-    max-width: $md4;
+  @media screen and (max-width: $phoneWidth) {
+    max-width: $smPhoneWidth;
   }
 }
 
-/*
-! Modules: ============================== */
-@import 'utils/ui';
+// Modules:
 // example: @import "modules/my-module.scss";
