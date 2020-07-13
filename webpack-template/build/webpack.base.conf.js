@@ -6,11 +6,13 @@ const fs = require("fs");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { VueLoaderPlugin } = require("vue-loader");
+const {
+  VueLoaderPlugin
+} = require("vue-loader");
 
 // Main const. Feel free to change it
 const PATHS = {
-  src: path.join(__dirname, "../src"),
+  src: path.join(__dirname, "../#src"),
   dist: path.join(__dirname, "../dist"),
   assets: "assets/"
 };
@@ -48,8 +50,7 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         // JavaScript
         test: /\.js$/,
         loader: "babel-loader",
@@ -89,18 +90,24 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: { sourceMap: true }
+            options: {
+              sourceMap: true
+            }
           },
           {
             loader: "postcss-loader",
             options: {
               sourceMap: true,
-              config: { path: `./postcss.config.js` }
+              config: {
+                path: `./postcss.config.js`
+              }
             }
           },
           {
             loader: "sass-loader",
-            options: { sourceMap: true }
+            options: {
+              sourceMap: true
+            }
           }
         ]
       },
@@ -112,13 +119,17 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: { sourceMap: true }
+            options: {
+              sourceMap: true
+            }
           },
           {
             loader: "postcss-loader",
             options: {
               sourceMap: true,
-              config: { path: `./postcss.config.js` }
+              config: {
+                path: `./postcss.config.js`
+              }
             }
           }
         ]
@@ -136,10 +147,18 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].[contenthash].css`
     }),
-    new CopyWebpackPlugin([
-      { from: `${PATHS.src}/${PATHS.assets}img`, to: `${PATHS.assets}img` },
-      { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts` },
-      { from: `${PATHS.src}/static`, to: "" }
+    new CopyWebpackPlugin([{
+        from: `${PATHS.src}/${PATHS.assets}img`,
+        to: `${PATHS.assets}img`
+      },
+      {
+        from: `${PATHS.src}/${PATHS.assets}fonts`,
+        to: `${PATHS.assets}fonts`
+      },
+      {
+        from: `${PATHS.src}/static`,
+        to: ""
+      }
     ]),
 
     /*
@@ -151,10 +170,10 @@ module.exports = {
     */
     ...PAGES.map(
       page =>
-        new HtmlWebpackPlugin({
-          template: `${PAGES_DIR}/${page}`,
-          filename: `./${page}`
-        })
+      new HtmlWebpackPlugin({
+        template: `${PAGES_DIR}/${page}`,
+        filename: `./${page}`
+      })
     )
   ]
 };
