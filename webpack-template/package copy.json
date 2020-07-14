@@ -11,7 +11,23 @@
     "> 1%",
     "last 3 version"
   ],
-  "author": "",
+  "author": "https://github.com/vedees",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vedees/webpack-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vedees/webpack-template/issues"
+  },
+  "keywords": [
+    "webpack",
+    "webpack4",
+    "merge",
+    "bable",
+    "bable7",
+    "scss",
+    "vue"
+  ],
   "license": "MIT",
   "dependencies": {
     "vue": "^2.6.11"
