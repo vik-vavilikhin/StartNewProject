@@ -1,5 +1,4 @@
-/* Build config:
-   ========================================================================== */
+/* Build config: ======================== */
 
 const merge = require("webpack-merge");
 const baseWebpackConfig = require("./webpack.base.conf");

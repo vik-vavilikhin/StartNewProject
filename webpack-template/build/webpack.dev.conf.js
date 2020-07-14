@@ -1,5 +1,4 @@
-/* Development config:
-   ========================================================================== */
+/* Development config: ================== */
 
 const webpack = require("webpack");
 const merge = require("webpack-merge");

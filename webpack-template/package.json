@@ -1,7 +1,7 @@
 {
-  "name": "webpacktemplate",
+  "name": "webpack-start-project",
   "version": "1.0.0",
-  "description": "My template",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --config ./build/webpack.dev.conf.js",
@@ -14,7 +14,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

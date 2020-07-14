@@ -13,8 +13,11 @@
 export default {
   data() {
     return {
-      message: "Example Vue component"
+      message: null
     };
+  },
+  created() {
+    this.message = this.$store.getters.getMessage;
   }
 };
 </script>

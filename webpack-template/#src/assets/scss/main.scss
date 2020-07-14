@@ -1,9 +1,11 @@
+// ===== IMPORTS ===========================
 @import "utils/libs";
 @import "utils/vars";
 @import "utils/mixins";
 @import "utils/fonts";
 @import "utils/reset";
 
+// =========================================
 html {
   line-height: $mainLineHeight;
   font-size: $mainFontSize;
@@ -33,6 +35,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+// =========================================
 *,
 *:before,
 *:after {
@@ -77,6 +80,7 @@ section,
   }
 }
 
+// =========================================
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -111,6 +115,6 @@ section,
   }
 }
 
-// Modules:
+// ===== MODULES ===========================
 // example: @import "modules/my-module.scss";
-@import "modules/wrapper";
+// @import "modules/wrapper";
