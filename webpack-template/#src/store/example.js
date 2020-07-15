@@ -6,7 +6,7 @@ export default {
   actions: {},
   getters: {
     getMessage(state) {
-      return state.message
+      return state.message;
     }
   }
 }

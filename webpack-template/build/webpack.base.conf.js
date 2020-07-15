@@ -32,22 +32,22 @@ module.exports = {
     // module: `${PATHS.src}/your-module.js`,
   },
   output: {
-    filename: `${PATHS.assets}js/[name].js`, //.[contenthash]
+    filename: `${PATHS.assets}js/[name].[hash].js`, //.[contenthash]
     path: PATHS.dist,
     publicPath: '/'
   },
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       vendor: {
-  //         name: 'vendors',
-  //         test: /node_modules/,
-  //         chunks: 'all',
-  //         enforce: true
-  //       }
-  //     }
-  //   }
-  // },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendors',
+          test: /node_modules/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
+  },
   module: {
     rules: [{
         // JavaScript
@@ -144,16 +144,16 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: `${PATHS.assets}css/[name].css` //.[contenthash]
+      filename: `${PATHS.assets}css/[name].[hash].css` //.[contenthash]
     }),
     new CopyWebpackPlugin([{
         from: `${PATHS.src}/${PATHS.assets}img`,
         to: `${PATHS.assets}img`
       },
-      // {
-      //   from: `${PATHS.src}/${PATHS.assets}fonts`,
-      //   to: `${PATHS.assets}fonts`
-      // },
+      {
+        from: `${PATHS.src}/${PATHS.assets}fonts`,
+        to: `${PATHS.assets}fonts`
+      },
       {
         from: `${PATHS.src}/static`,
         to: ``
