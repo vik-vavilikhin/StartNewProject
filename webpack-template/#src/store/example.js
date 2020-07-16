@@ -1,12 +1,12 @@
 export default {
   state: {
-    message: 'Hello vuex'
+    message: 'hello vuex'
   },
   mutations: {},
   actions: {},
   getters: {
-    getMessage(state) {
-      return state.message;
+    getMessage (state) {
+      return state.message
     }
   }
 }

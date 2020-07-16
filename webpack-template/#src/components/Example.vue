@@ -1,15 +1,12 @@
 <template>
   <section>
     <div class="container">
-      <img src="/assets/img/logo.png" :alt="message" />
-      <p>{{ message }}</p>
+      <h1>Vue message 2: {{ message }}</h1>
     </div>
   </section>
 </template>
 
 <script>
-// Жду на курсе по вью: https://tocode.ru/curses/vuejs-s-nylya-do-pro
-// Скидка по промокоду: "WEBPACK" ;)
 export default {
   data() {
     return {
@@ -23,10 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  text-align: center;
-}
-img {
-  max-width: 200px;
+h1 {
+  color: green;
 }
 </style>
