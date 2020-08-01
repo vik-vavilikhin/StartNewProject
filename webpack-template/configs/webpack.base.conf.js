@@ -7,7 +7,7 @@ const {
 } = require('vue-loader');
 
 const PATHS = {
-  build: 'build',
+  configs: 'configs',
   src: path.join(__dirname, '../#src'),
   dist: path.join(__dirname, '../dist'),
   assets: 'assets/',
@@ -79,7 +79,7 @@ module.exports = {
           options: {
             sourceMap: true,
             config: {
-              path: `${PATHS.build}/postcss.config.js`
+              path: `${PATHS.configs}/postcss.config.js`
             }
           }
         }, {
@@ -104,7 +104,7 @@ module.exports = {
           options: {
             sourceMap: true,
             config: {
-              path: `${PATHS.build}/postcss.config.js`
+              path: `${PATHS.configs}/postcss.config.js`
             }
           }
         }

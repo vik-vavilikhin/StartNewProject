@@ -5,8 +5,8 @@ export default {
   mutations: {},
   actions: {},
   getters: {
-    getMessage (state) {
-      return state.message
+    getMessage(state) {
+      return state.message;
     }
   }
-}
+};
